@@ -1,0 +1,9 @@
+name = "sekisho"
+compatibility_date = "2024-01-21"
+
+[site]
+bucket = "."
+
+[build]
+command = "npm run build"
+cwd = "."
