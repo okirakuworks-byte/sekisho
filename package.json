@@ -1,16 +1,19 @@
 {
   "name": "sekisho",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "description": "塗装 石匠 / SEKISHO - 神奈川県足柄上郡山北町の塗装専門店ウェブサイト",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "python3 -m http.server 8000",
+    "serve": "npx serve .",
+    "start": "python3 -m http.server 8000"
   },
-  "dependencies": {
-    "next": "latest",
-    "react": "latest",
-    "react-dom": "latest"
-  }
+  "keywords": [
+    "塗装",
+    "sekisho",
+    "石匠",
+    "website"
+  ],
+  "author": "SEKISHO",
+  "license": "UNLICENSED"
 }
