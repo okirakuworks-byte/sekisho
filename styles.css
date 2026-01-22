@@ -493,6 +493,12 @@ body {
     color: var(--gray-600);
 }
 
+.contact-note {
+    font-size: 14px;
+    color: var(--gray-400);
+    margin-top: 4px;
+}
+
 /* ========================================
    Contact Form - Apple Style
 ======================================== */
@@ -544,6 +550,11 @@ body {
 .form-group textarea {
     resize: vertical;
     min-height: 100px;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--gray-400);
 }
 
 /* ========================================
