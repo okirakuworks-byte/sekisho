@@ -1,3 +1,5 @@
+// Apple-Style Modern Minimalist JavaScript
+
 // モバイルメニューのトグル
 const navToggle = document.querySelector('.nav-toggle');
 const navMenu = document.querySelector('.nav-menu');
@@ -18,22 +20,17 @@ if (navToggle) {
     });
 }
 
-// スクロール時のヘッダー効果
-let lastScroll = 0;
+// スクロール時のヘッダー効果 - Apple Style
 const header = document.querySelector('.header');
 
 window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
 
-    if (currentScroll > 100) {
-        header.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.12)';
-        header.style.background = 'rgba(255, 255, 255, 0.98)';
+    if (currentScroll > 10) {
+        header.classList.add('scrolled');
     } else {
-        header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.05)';
-        header.style.background = 'rgba(255, 255, 255, 0.95)';
+        header.classList.remove('scrolled');
     }
-
-    lastScroll = currentScroll;
 });
 
 // スクロールアニメーション
@@ -46,6 +43,8 @@ const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('fade-in');
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
             observer.unobserve(entry.target);
         }
     });
@@ -53,8 +52,11 @@ const observer = new IntersectionObserver((entries) => {
 
 // アニメーション対象の要素を監視
 document.addEventListener('DOMContentLoaded', () => {
-    const animateElements = document.querySelectorAll('.feature-card, .comparison-card, .contact-item, .about-text');
+    const animateElements = document.querySelectorAll('.feature-card, .comparison-card, .contact-item, .about-text, .about-image');
     animateElements.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(24px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(el);
     });
 });
@@ -88,9 +90,6 @@ if (contactForm) {
         const formData = new FormData(contactForm);
         const data = Object.fromEntries(formData);
         
-        // ここで実際の送信処理を実装
-        // 例: EmailJS、Formspree、またはバックエンドAPIへの送信
-        
         // デモ用のアラート
         alert('お問い合わせありがとうございます。\n担当者より折り返しご連絡いたします。');
         
@@ -99,37 +98,12 @@ if (contactForm) {
     });
 }
 
-// 電話番号リンクのクリック追跡（オプション）
+// 電話番号リンクのクリック追跡
 document.querySelectorAll('a[href^="tel:"]').forEach(link => {
     link.addEventListener('click', () => {
-        // アナリティクスイベントを送信する場合はここに追加
         console.log('電話番号がクリックされました');
     });
 });
-
-// パフォーマンス最適化: 画像の遅延読み込み（将来の画像追加時に使用）
-if ('loading' in HTMLImageElement.prototype) {
-    const images = document.querySelectorAll('img[loading="lazy"]');
-    images.forEach(img => {
-        img.src = img.dataset.src;
-    });
-} else {
-    // フォールバック: Intersection Observerを使用
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.classList.remove('lazy');
-                imageObserver.unobserve(img);
-            }
-        });
-    });
-
-    document.querySelectorAll('img[data-src]').forEach(img => {
-        imageObserver.observe(img);
-    });
-}
 
 // ヒーローセクションのスライドショー
 const heroSlides = document.querySelectorAll('.hero-slide');
@@ -142,37 +116,11 @@ if (heroSlides.length > 0) {
         heroSlides[currentSlide].classList.add('active');
     }
 
-    // 5秒ごとにスライドを切り替え（元のサイトと同じ設定）
+    // 5秒ごとにスライドを切り替え
     setInterval(showNextSlide, 5000);
 }
 
-// ページ読み込み時のアニメーション
+// ページ読み込み完了時
 window.addEventListener('load', () => {
     document.body.classList.add('loaded');
-    
-    // カウントアップアニメーション（コスト表示）
-    const animateValue = (element, start, end, duration) => {
-        let startTimestamp = null;
-        const step = (timestamp) => {
-            if (!startTimestamp) startTimestamp = timestamp;
-            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-            const value = Math.floor(progress * (end - start) + start);
-            element.textContent = value + '万円';
-            if (progress < 1) {
-                window.requestAnimationFrame(step);
-            }
-        };
-        window.requestAnimationFrame(step);
-    };
-});
-
-// パララックス効果
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const parallaxElements = document.querySelectorAll('.hero-content');
-    
-    parallaxElements.forEach(element => {
-        const speed = 0.5;
-        element.style.transform = `translateY(${scrolled * speed}px)`;
-    });
 });
